@@ -15,7 +15,7 @@ def load_data(messages_filepath, categories_filepath):
     df = messages.merge(categories, left_on='id',right_on='id')
 
     # create a dataframe of the 36 individual category columns
-    categories = categories['categories'].str.split(';', expand=True)
+    categories = df['categories'].str.split(';', expand=True)
 
     # select the first row of the categories dataframe
     row = categories.iloc[0].tolist()
