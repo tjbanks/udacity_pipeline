@@ -35,6 +35,11 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """
+    Tokenize the string of text provided
+    Replaces URLS
+    Lemmatizes and returns the tokens
+    """
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
         text = text.replace(url, "urlplaceholder")
@@ -51,6 +56,12 @@ def tokenize(text):
 
 
 def build_model():
+    """
+    Builds a simple pipeline containing:
+        CountVectorizer,
+        TfidfTransformer
+        RandomForestClassifier
+    """
     pipeline = Pipeline([
         ('vect',CountVectorizer(tokenizer=tokenize)),
         ('tfidf',TfidfTransformer()),
@@ -61,7 +72,7 @@ def build_model():
 
 def test_other_models(pipeline, X_test, Y_test, category_names):
     """
-    Used for testing
+    Used for testing, proof of thoughts
     """
 
     parameters = {
@@ -98,6 +109,9 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """
+    Save the scikitlearn model to a provided pickle file location
+    """
     # Dump the trained classifier with Pickle
     # Open the file to save as pkl file
     model_pkl = open(model_filepath, 'wb')
@@ -107,6 +121,9 @@ def save_model(model, model_filepath):
 
 
 def main():
+    """
+    Main entry point
+    """
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
