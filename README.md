@@ -13,10 +13,21 @@
 
 3. Go to http://0.0.0.0:3001/
 
+## File Listing
+
+### `data/process_data.py`
+The ETL script, process_data.py, runs in the terminal (see Example Use). The script takes the file paths of the two datasets and database, cleans the datasets, and stores the clean data into a SQLite database in the specified database file path.
+It merges the messages and categories datasets, splits the categories column into separate, clearly named columns, converts values to binary, and drops duplicates.
+
+### `models/process_data.py`
+The machine learning script, train_classifier.py, takes the database file path and model file path, creates and trains a classifier, and stores the classifier into a pickle file to the specified model file path.
+
+### `app/run.py`
+Starts the Flask web application.
 
 ## Example Use
 
-### process_data.py
+### `data/process_data.py`
 ```
 > python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db
 Loading data...
@@ -28,7 +39,7 @@ Saving data...
 Cleaned data saved to database!
 ```
 
-### train_classifier.py
+### `models/train_classifier.py`
 ```
 > python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
 [nltk_data] Downloading package punkt to
@@ -410,7 +421,7 @@ Trained model saved!
 
 ```
 
-### run.py
+### `app/run.py`
 
 ```
 > cd app
